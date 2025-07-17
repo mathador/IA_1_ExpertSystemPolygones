@@ -9,8 +9,10 @@
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ExpertSystemPolygones\ExpertSystemPCL.csproj" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExpertSystemPCL\ExpertSystemPCL.csproj" />
   </ItemGroup>
 </Project>

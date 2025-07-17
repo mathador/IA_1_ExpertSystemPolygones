@@ -46,7 +46,7 @@ class Program : IHumanInterface
         Console.WriteLine(p);
         try
         {
-            return int.Parse(Console.In.ReadLine());
+            return int.Parse(Console.ReadLine());
         }
         catch (Exception)
         {
@@ -57,7 +57,7 @@ class Program : IHumanInterface
     public bool AskBoolValue(string p)
     {
         Console.WriteLine(p + " (yes, no)");
-        string res = Console.In.ReadLine();
+        string res = Console.ReadLine();
         return (res.Equals("yes"));
     }
 
