@@ -30,12 +30,12 @@ namespace ExpertSystemPCL
             facts.Add(f);
         }
 
-        public IFact Search(String _name)
+        public IFact Search(string _name)
         {
             return facts.FirstOrDefault(x => x.Name().Equals(_name));
         }
 
-        public Object Value(String _name)
+        public object Value(string _name)
         {
             IFact f = facts.FirstOrDefault(x => x.Name().Equals(_name));
             if (f != null)

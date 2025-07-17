@@ -17,7 +17,8 @@ namespace ExpertSystemPCL
             }
         }
 
-        public RulesBase() {
+        public RulesBase()
+        {
             rules = new List<Rule>();
         }
 

@@ -7,9 +7,9 @@ namespace ExpertSystemPCL
     {
         public List<IFact> Premises { get; set; }
         public IFact Conclusion { get; set; }
-        public String Name { get; set; }
+        public string Name { get; set; }
 
-        public Rule(String _name, List<IFact> _premises, IFact _conclusion)
+        public Rule(string _name, List<IFact> _premises, IFact _conclusion)
         {
             Name = _name;
             Premises = _premises;
@@ -18,7 +18,7 @@ namespace ExpertSystemPCL
 
         public override string ToString()
         {
-            return Name + " : IF (" + String.Join(" AND ", Premises)+ ") THEN " + Conclusion.ToString();
+            return Name + " : IF (" + string.Join(" AND ", Premises) + ") THEN " + Conclusion.ToString();
         }
     }
 }

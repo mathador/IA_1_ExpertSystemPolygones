@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace ExpertSystemPCL
+﻿namespace ExpertSystemPCL
 {
     internal class BoolFact : IFact
     {
-        protected String name;
-        public String Name()
+        protected string name;
+        public string Name()
         {
             return name;
         }
@@ -26,13 +24,13 @@ namespace ExpertSystemPCL
             level = l;
         }
 
-        protected String question = null;
-        public String Question()
+        protected string question = null;
+        public string Question()
         {
             return question;
         }
 
-        public BoolFact(String _name, bool _value, String _question = null, int _level = 0)
+        public BoolFact(string _name, bool _value, string _question = null, int _level = 0)
         {
             name = _name;
             value = _value;
@@ -40,9 +38,9 @@ namespace ExpertSystemPCL
             level = _level;
         }
 
-        public override String ToString()
+        public override string ToString()
         {
-            String res = "";
+            string res = "";
             if (!value)
             {
                 res += "!";

@@ -4,10 +4,10 @@ namespace ExpertSystemPCL
 {
     public interface IFact
     {
-        String Name();
-        Object Value();
+        string Name();
+        object Value();
         int Level();
-        String Question();
+        string Question();
 
         void SetLevel(int p);
     }

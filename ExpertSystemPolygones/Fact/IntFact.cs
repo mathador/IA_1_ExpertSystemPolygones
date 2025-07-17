@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace ExpertSystemPCL
+﻿namespace ExpertSystemPCL
 {
     internal class IntFact : IFact
     {
-        protected String name;
-        public String Name()
+        protected string name;
+        public string Name()
         {
             return name;
         }
@@ -26,13 +24,13 @@ namespace ExpertSystemPCL
             level = l;
         }
 
-        protected String question = null;
-        public String Question()
+        protected string question = null;
+        public string Question()
         {
             return question;
         }
 
-        public IntFact(String _name, int _value, String _question = null, int _level = 0)
+        public IntFact(string _name, int _value, string _question = null, int _level = 0)
         {
             name = _name;
             value = _value;
@@ -40,7 +38,7 @@ namespace ExpertSystemPCL
             level = _level;
         }
 
-        public override String ToString()
+        public override string ToString()
         {
             return name + "=" + value + " (" + level + ")";
         }

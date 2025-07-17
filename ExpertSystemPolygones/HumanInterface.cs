@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ExpertSystemPCL
 {
-    public interface HumanInterface
+    public interface IHumanInterface
     {
-        int AskIntValue(String question);
-        bool AskBoolValue(String question);
+        int AskIntValue(string question);
+        bool AskBoolValue(string question);
         void PrintFacts(List<IFact> facts);
         void PrintRules(List<Rule> rules);
     }

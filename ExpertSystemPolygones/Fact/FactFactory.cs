@@ -25,10 +25,10 @@ namespace ExpertSystemPCL
             factStr = factStr.Trim();
             if (factStr.Contains("="))
             {
-                String[] nameValue = factStr.Split(new String[] { "=", "(", ")" }, StringSplitOptions.RemoveEmptyEntries);
+                string[] nameValue = factStr.Split(new string[] { "=", "(", ")" }, StringSplitOptions.RemoveEmptyEntries);
                 if (nameValue.Length >= 2)
                 {
-                    String question = null;
+                    string question = null;
                     if (nameValue.Length == 3)
                     {
                         question = nameValue[2].Trim();
@@ -48,8 +48,8 @@ namespace ExpertSystemPCL
                     value = false;
                     factStr = factStr.Substring(1).Trim(); // On enlève le ! du nom
                 }
-                String[] nameQuestion = factStr.Split(new String[] { "(", ")" }, StringSplitOptions.RemoveEmptyEntries);
-                String question = null;
+                string[] nameQuestion = factStr.Split(new string[] { "(", ")" }, StringSplitOptions.RemoveEmptyEntries);
+                string question = null;
                 if (nameQuestion.Length == 2)
                 {
                     question = nameQuestion[1].Trim();
