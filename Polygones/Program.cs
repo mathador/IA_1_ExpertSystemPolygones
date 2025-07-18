@@ -16,9 +16,10 @@ class Program : IHumanInterface
     {
         // Moteur
         Console.WriteLine("** Création du moteur **");
-        Motor m = new(AskBoolValue, AskIntValue);
+        Motor m = new(AskBoolValue, AskIntValue); /// TODO ce mode de fonctionnement est temporaire, il faut le remplacer mais par quoi ?
 
         // Règles
+        /// TODO ces règles devraient être dans un fichier de règles, ou une base de données
         Console.WriteLine("** Ajout des règles **");
         m.AddRule("R1 : IF (Ordre=3(Quel est l'ordre ?)) THEN Triangle");
         m.AddRule("R2 : IF (Triangle AND Angle Droit(La figure a-t-elle au moins un angle droit ?)) THEN Triangle Rectangle");

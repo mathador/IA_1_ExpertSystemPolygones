@@ -20,6 +20,11 @@ internal static class FactFactory
         return newFact;
     }
 
+    /// <summary>
+    /// Effectue l'essentiel de la responsabilité du parsing.
+    /// </summary>
+    /// <param name="factStr"></param>
+    /// <returns></returns>
     internal static IFact Fact(string factStr)
     {
         factStr = factStr.Trim();

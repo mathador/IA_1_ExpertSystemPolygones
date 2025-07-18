@@ -99,6 +99,12 @@ public class Motor
         return _askBoolValue(p);
     }
 
+    /// <summary>
+    /// Cette méthode permet d'ajouter une règle au moteur.
+    /// Mais aussi parser la chaîne de caractères qui représente la règle.
+    /// TODO : il faut une séparation des responsabilités, cette méthode ne devrait pas parser la chaîne de caractères.
+    /// </summary>
+    /// <param name="ruleStr"></param>
     public void AddRule(string ruleStr)
     {
         string[] splitName = ruleStr.Split(new string[] { " : " }, StringSplitOptions.RemoveEmptyEntries);
