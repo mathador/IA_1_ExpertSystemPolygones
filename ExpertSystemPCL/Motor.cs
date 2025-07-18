@@ -41,7 +41,6 @@ public class Motor
                 moreRules = false;
             }
         }
-        //ihm.PrintFacts(fDB.Facts);
         return fDB.Facts;
     }
 
