@@ -1,4 +1,6 @@
-﻿namespace ExpertSystemPCL;
+﻿using ExpertSystemPCL.Interfaces;
+
+namespace ExpertSystemPCL;
 
 internal class BoolFact : IFact
 {

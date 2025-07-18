@@ -1,6 +1,8 @@
-﻿namespace ExpertSystemPCL;
+﻿using ExpertSystemPCL.Interfaces;
 
-public class Rule
+namespace ExpertSystemPCL.Rules;
+
+public class Rule : IRule
 {
     public List<IFact> Premises { get; set; }
     public IFact Conclusion { get; set; }

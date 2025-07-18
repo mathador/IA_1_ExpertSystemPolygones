@@ -1,4 +1,4 @@
-﻿namespace ExpertSystemPCL;
+﻿namespace ExpertSystemPCL.Interfaces;
 
 public interface IFact
 {

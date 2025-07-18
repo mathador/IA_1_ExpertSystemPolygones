@@ -1,7 +1,6 @@
 ﻿using ExpertSystemPCL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using ExpertSystemPCL.Interfaces;
+using Polygones.Interfaces;
 
 namespace Polygones;
 
@@ -17,7 +16,7 @@ class Program : IHumanInterface
     {
         // Moteur
         Console.WriteLine("** Création du moteur **");
-        Motor m = new(this);
+        Motor m = new(AskBoolValue, AskIntValue);
 
         // Règles
         Console.WriteLine("** Ajout des règles **");
@@ -37,7 +36,7 @@ class Program : IHumanInterface
         while (true)
         {
             Console.WriteLine("\n** Résolution **");
-            m.Solve();
+            PrintFacts(m.Solve());
         }
     }
 
@@ -68,7 +67,7 @@ class Program : IHumanInterface
         Console.WriteLine(res);
     }
 
-    public void PrintRules(List<Rule> rules)
+    public void PrintRules(List<IRule> rules)
     {
         var res = "";
         res = string.Join("\n", rules);

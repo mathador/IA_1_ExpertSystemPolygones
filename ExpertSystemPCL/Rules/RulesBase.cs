@@ -1,4 +1,4 @@
-﻿namespace ExpertSystemPCL;
+﻿namespace ExpertSystemPCL.Rules;
 
 internal class RulesBase
 {

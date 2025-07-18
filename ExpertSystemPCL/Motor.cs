@@ -1,19 +1,25 @@
-﻿namespace ExpertSystemPCL;
+﻿using ExpertSystemPCL.Interfaces;
+using ExpertSystemPCL.Rules;
+
+namespace ExpertSystemPCL;
 
 public class Motor
 {
     private FactsBase fDB;
     private RulesBase rDB;
-    private IHumanInterface ihm;
+    private readonly Func<string, bool> _askBoolValue;
+    private readonly Func<string, int> _askIntValue;
 
-    public Motor(IHumanInterface _ihm)
+    public Motor(Func<string, bool> askBoolValue,
+                 Func<string, int> askIntValue)
     {
-        ihm = _ihm;
         fDB = new FactsBase();
         rDB = new RulesBase();
+        _askBoolValue = askBoolValue;
+        _askIntValue = askIntValue;
     }
 
-    public void Solve()
+    public List<IFact> Solve()
     {
         bool moreRules = true;
         RulesBase usableRules = new RulesBase();
@@ -35,7 +41,8 @@ public class Motor
                 moreRules = false;
             }
         }
-        ihm.PrintFacts(fDB.Facts);
+        //ihm.PrintFacts(fDB.Facts);
+        return fDB.Facts;
     }
 
     private int CanApply(Rule r)
@@ -85,12 +92,12 @@ public class Motor
 
     internal int AskIntValue(string p)
     {
-        return ihm.AskIntValue(p);
+        return _askIntValue(p);
     }
 
     internal bool AskBoolValue(string p)
     {
-        return ihm.AskBoolValue(p);
+        return _askBoolValue(p);
     }
 
     public void AddRule(string ruleStr)
