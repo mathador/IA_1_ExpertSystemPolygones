@@ -1,77 +1,79 @@
 ﻿using ExpertSystemPCL;
 using ExpertSystemPCL.Interfaces;
-using Polygones.Interfaces;
+using System.IO;
 
 namespace Polygones;
 
-class Program : IHumanInterface
+internal static class Program
 {
-    static void Main(string[] args)
-    {
-        Program p = new();
-        p.Run();
-    }
+    private const string FICHIER_RULES = "rules.rls";
 
-    public void Run()
+    static void Main()
     {
         // Moteur
         Console.WriteLine("** Création du moteur **");
-        Motor m = new(AskBoolValue, AskIntValue); /// TODO ce mode de fonctionnement est temporaire, il faut le remplacer mais par quoi ?
+        Motor m = new(AskBoolValue, AskIntValue); /// TODO ce mode de fonctionnement est temporaire, il faut le remplacer mais par quoi ? Le motor doit-il utiliser l'IHM ?
+
+        // récupération des règles en base de données ou dans un fichier
+        string[] rules;
+        if (File.Exists(FICHIER_RULES))
+        {
+            Console.WriteLine($"** Chargement des règles depuis le fichier {FICHIER_RULES} **");
+            rules = File.ReadAllLines(FICHIER_RULES);
+        }
+        else
+        {
+            Console.WriteLine($"** Aucune règle trouvée dans le fichier {FICHIER_RULES} **");
+            return;
+        }
+        Console.WriteLine("** Lectures des Règles **");
+
 
         // Règles
-        /// TODO ces règles devraient être dans un fichier de règles, ou une base de données
         Console.WriteLine("** Ajout des règles **");
-        m.AddRule("R1 : IF (Ordre=3(Quel est l'ordre ?)) THEN Triangle");
-        m.AddRule("R2 : IF (Triangle AND Angle Droit(La figure a-t-elle au moins un angle droit ?)) THEN Triangle Rectangle");
-        m.AddRule("R3 : IF (Triangle AND Cotes Egaux=2(Combien la figure a-t-elle de côtés égaux ?)) THEN Triangle Isocèle");
-        m.AddRule("R4 : IF (Triangle Rectangle AND Triangle Isocèle) THEN Triangle Rectangle Isocèle");
-        m.AddRule("R5 : IF (Triangle AND Cotes Egaux=3(Combien la figure a-t-elle de côtés égaux ?)) THEN Triangle Equilateral");
-        m.AddRule("R6 : IF (Ordre=4(Quel est l'ordre ?)) THEN Quadrilatère");
-        m.AddRule("R7 : IF (Quadrilatère AND Cotes Paralleles=2(Combien y'a-t-il de côtés parallèles entre eux - 0, 2 ou 4)) THEN Trapeze");
-        m.AddRule("R8 : IF (Quadrilatère AND Cotes Paralleles=4(Combien y'a-t-il de côtés parallèles entre eux - 0, 2 ou 4)) THEN Parallélogramme");
-        m.AddRule("R9 : IF (Parallélogramme AND Angle Droit(La figure a-t-elle au moins un angle droit ?)) THEN Rectangle");
-        m.AddRule("R10 : IF (Parallélogramme AND Cotes Egaux=4(Combien la figure a-t-elle de côtés égaux ?)) THEN Losange");
-        m.AddRule("R11 : IF (Rectangle AND Losange THEN Carré");
+        foreach (var item in rules)
+        {
+            m.AddRule(item);
+        }
 
         // Résolution
-        while (true)
+        do
         {
-            Console.WriteLine("\n** Résolution **");
+            Console.WriteLine($"{Environment.NewLine}** Résolution **");
             PrintFacts(m.Solve());
         }
+        while (AskBoolValue("Voulez-vous continuer ?"));
     }
 
-    public int AskIntValue(string p)
+    public static int AskIntValue(string p)
     {
         Console.WriteLine(p);
         try
         {
             return int.Parse(Console.ReadLine());
         }
-        catch (Exception)
+        catch
         {
             return 0;
         }
     }
 
-    public bool AskBoolValue(string p)
+    public static bool AskBoolValue(string p)
     {
-        Console.WriteLine(p + " (yes, no)");
+        Console.WriteLine($"{p} (yes, no)");
         string res = Console.ReadLine();
-        return (res.Equals("yes"));
+        return res.StartsWith("y", StringComparison.OrdinalIgnoreCase);
     }
 
-    public void PrintFacts(List<IFact> facts)
+    public static void PrintFacts(List<IFact> facts)
     {
-        var res = "Solution(s) trouvée(s) : \n";
-        res += string.Join("\n", facts.Where(x => x.Level() > 0).OrderByDescending(x => x.Level()));
+        var res = $"Solution(s) trouvée(s) : {Environment.NewLine}{string.Join(Environment.NewLine, facts.Where(x => x.Level > 0).OrderByDescending(x => x.Level))}";
         Console.WriteLine(res);
     }
 
-    public void PrintRules(List<IRule> rules)
+    public static void PrintRules(List<IRule> rules)
     {
-        var res = "";
-        res = string.Join("\n", rules);
+        var res = string.Join(Environment.NewLine, rules);
         Console.WriteLine(res);
     }
 }

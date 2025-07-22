@@ -15,8 +15,8 @@ public class Rule : IRule
         Conclusion = _conclusion;
     }
 
-    public override string ToString()
-    {
-        return Name + " : IF (" + string.Join(" AND ", Premises) + ") THEN " + Conclusion.ToString();
-    }
+    //public override string ToString()
+    //{
+    //    return Name + " : IF (" + string.Join(" AND ", Premises) + ") THEN " + Conclusion.ToString();
+    //}
 }

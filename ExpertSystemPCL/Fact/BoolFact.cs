@@ -5,32 +5,20 @@ namespace ExpertSystemPCL;
 internal class BoolFact : IFact
 {
     protected string name;
-    public string Name()
-    {
-        return name;
-    }
+    public string Name => name;
 
     protected bool value;
-    public object Value()
-    {
-        return value;
-    }
+    public object Value => value;
 
     protected int level;
-    public int Level()
-    {
-        return level;
-    }
+    public int Level => level;
     public void SetLevel(int l)
     {
         level = l;
     }
 
-    protected string question = null;
-    public string Question()
-    {
-        return question;
-    }
+    protected string question;
+    public string Question => question;
 
     public BoolFact(string _name, bool _value, string _question = null, int _level = 0)
     {
@@ -40,14 +28,14 @@ internal class BoolFact : IFact
         level = _level;
     }
 
-    public override string ToString()
-    {
-        string res = "";
-        if (!value)
-        {
-            res += "!";
-        }
-        res += name + " (" + level + ")";
-        return res;
-    }
+    //public override string ToString()
+    //{
+    //    string res = "";
+    //    if (!value)
+    //    {
+    //        res += "!";
+    //    }
+    //    res += name + " (" + level + ")";
+    //    return res;
+    //}
 }

@@ -2,10 +2,13 @@
 
 public interface IFact
 {
-    string Name();
-    object Value();
-    int Level();
-    string Question();
+    string Name { get; }
+
+    object Value { get; }
+
+    int Level { get; }
+
+    string Question { get; }
 
     void SetLevel(int p);
 }

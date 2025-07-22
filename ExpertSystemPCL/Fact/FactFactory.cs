@@ -9,13 +9,13 @@ internal static class FactFactory
         IFact newFact;
         if (f.GetType().Equals(typeof(IntFact)))
         {
-            int value = m.AskIntValue(f.Question());
-            newFact = new IntFact(f.Name(), value, null, 0);
+            int value = m.AskIntValue(f.Question);
+            newFact = new IntFact(f.Name, value, null, 0);
         }
         else
         {
-            bool value = m.AskBoolValue(f.Question());
-            newFact = new BoolFact(f.Name(), value, null, 0);
+            bool value = m.AskBoolValue(f.Question);
+            newFact = new BoolFact(f.Name, value, null, 0);
         }
         return newFact;
     }
@@ -30,7 +30,7 @@ internal static class FactFactory
         factStr = factStr.Trim();
         if (factStr.Contains("="))
         {
-            string[] nameValue = factStr.Split(new string[] { "=", "(", ")" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] nameValue = factStr.Split(["=", "(", ")"], StringSplitOptions.RemoveEmptyEntries);
             if (nameValue.Length >= 2)
             {
                 string question = null;
@@ -53,7 +53,7 @@ internal static class FactFactory
                 value = false;
                 factStr = factStr.Substring(1).Trim(); // On enlève le ! du nom
             }
-            string[] nameQuestion = factStr.Split(new string[] { "(", ")" }, StringSplitOptions.RemoveEmptyEntries);
+            string[] nameQuestion = factStr.Split(["(", ")"], StringSplitOptions.RemoveEmptyEntries);
             string question = null;
             if (nameQuestion.Length == 2)
             {

@@ -5,30 +5,30 @@ namespace ExpertSystemPCL;
 
 public class Motor
 {
-    private FactsBase fDB;
-    private RulesBase rDB;
+    private readonly FactsBase fDB = new();
+    private readonly RulesBase rDB = new();
     private readonly Func<string, bool> _askBoolValue;
     private readonly Func<string, int> _askIntValue;
 
     public Motor(Func<string, bool> askBoolValue,
                  Func<string, int> askIntValue)
     {
-        fDB = new FactsBase();
-        rDB = new RulesBase();
         _askBoolValue = askBoolValue;
         _askIntValue = askIntValue;
     }
 
     public List<IFact> Solve()
     {
-        bool moreRules = true;
-        RulesBase usableRules = new RulesBase();
-        usableRules.Rules = new List<Rule>(rDB.Rules);
-        fDB.Clear();
-
-        while (moreRules)
+        RulesBase usableRules = new()
         {
-            Tuple<Rule, int> ruleToApply = FindUsableRule(usableRules);
+            Rules = [.. rDB.Rules]
+        };
+
+        Tuple<Rule, int>? ruleToApply;
+        fDB.Clear();
+        do
+        {
+            ruleToApply = FindUsableRule(usableRules);
             if (ruleToApply != null)
             {
                 IFact newFact = ruleToApply.Item1.Conclusion;
@@ -36,11 +36,9 @@ public class Motor
                 fDB.AddFact(newFact);
                 usableRules.Remove(ruleToApply.Item1);
             }
-            else
-            {
-                moreRules = false;
-            }
         }
+        while (ruleToApply is not null);
+
         return fDB.Facts;
     }
 
@@ -49,10 +47,10 @@ public class Motor
         int maxlevel = -1;
         foreach (IFact f in r.Premises)
         {
-            IFact foundFact = fDB.Search(f.Name());
+            IFact foundFact = fDB.Search(f.Name);
             if (foundFact == null)
             {
-                if (f.Question() != null)
+                if (f.Question != null)
                 {
                     foundFact = FactFactory.Fact(f, this);
                     fDB.AddFact(foundFact);
@@ -64,23 +62,23 @@ public class Motor
                 }
             }
 
-            if (!foundFact.Value().Equals(f.Value()))
+            if (!foundFact.Value.Equals(f.Value))
             {
                 return -1;
             }
             else
             {
-                maxlevel = Math.Max(maxlevel, foundFact.Level());
+                maxlevel = Math.Max(maxlevel, foundFact.Level);
             }
         }
         return maxlevel;
     }
 
-    private Tuple<Rule, int> FindUsableRule(RulesBase rBase)
+    private Tuple<Rule, int>? FindUsableRule(RulesBase rBase)
     {
-        foreach (Rule r in rBase.Rules)
+        foreach (var r in rBase.Rules)
         {
-            int level = CanApply(r);
+            var level = CanApply(r);
             if (level != -1)
             {
                 return Tuple.Create(r, level);
@@ -107,24 +105,24 @@ public class Motor
     /// <param name="ruleStr"></param>
     public void AddRule(string ruleStr)
     {
-        string[] splitName = ruleStr.Split(new string[] { " : " }, StringSplitOptions.RemoveEmptyEntries);
+        var splitName = ruleStr.Split([" : "], StringSplitOptions.RemoveEmptyEntries);
         if (splitName.Length == 2)
         {
-            string name = splitName[0];
-            string[] splitPremConcl = splitName[1].Split(new string[] { "IF ", " THEN " }, StringSplitOptions.RemoveEmptyEntries);
+            var name = splitName[0];
+            var splitPremConcl = splitName[1].Split(["IF ", " THEN "], StringSplitOptions.RemoveEmptyEntries);
             if (splitPremConcl.Length == 2)
             {
-                List<IFact> premises = new List<IFact>();
-                string[] premisesStr = splitPremConcl[0].Split(new string[] { " AND " }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (string prem in premisesStr)
+                List<IFact> premises = [];
+                var premisesStr = splitPremConcl[0].Split([" AND "], StringSplitOptions.RemoveEmptyEntries);
+                foreach (var prem in premisesStr)
                 {
                     IFact premise = FactFactory.Fact(prem);
                     premises.Add(premise);
                 }
 
-                string conclusionStr = splitPremConcl[1].Trim();
+                var conclusionStr = splitPremConcl[1].Trim();
                 IFact conclusion = FactFactory.Fact(conclusionStr);
-                rDB.AddRule(new Rule(name, premises, conclusion));
+                rDB.AddRule(new(name, premises, conclusion));
             }
         }
     }

@@ -5,34 +5,22 @@ namespace ExpertSystemPCL;
 internal class IntFact : IFact
 {
     protected string name;
-    public string Name()
-    {
-        return name;
-    }
+    public string Name => name;
 
     protected int value;
-    public object Value()
-    {
-        return value;
-    }
+    public object Value => value;
 
     protected int level;
-    public int Level()
-    {
-        return level;
-    }
+    public int Level => level;
     public void SetLevel(int l)
     {
         level = l;
     }
 
-    protected string question = null;
-    public string Question()
-    {
-        return question;
-    }
+    protected string question;
+    public string Question => question;
 
-    public IntFact(string _name, int _value, string _question = null, int _level = 0)
+    public IntFact(string _name, int _value, string _question, int _level = 0)
     {
         name = _name;
         value = _value;
@@ -40,8 +28,8 @@ internal class IntFact : IFact
         level = _level;
     }
 
-    public override string ToString()
-    {
-        return name + "=" + value + " (" + level + ")";
-    }
+    //public override string ToString()
+    //{
+    //    return name + "=" + value + " (" + level + ")";
+    //}
 }

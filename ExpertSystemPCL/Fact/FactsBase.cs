@@ -15,7 +15,7 @@ internal class FactsBase
 
     public FactsBase()
     {
-        facts = new List<IFact>();
+        facts = [];
     }
 
     public void Clear()
@@ -30,15 +30,15 @@ internal class FactsBase
 
     public IFact Search(string _name)
     {
-        return facts.FirstOrDefault(x => x.Name().Equals(_name));
+        return facts.FirstOrDefault(x => x.Name.Equals(_name, StringComparison.Ordinal));
     }
 
     public object Value(string _name)
     {
-        IFact f = facts.FirstOrDefault(x => x.Name().Equals(_name));
+        IFact f = facts.FirstOrDefault(x => x.Name.Equals(_name, StringComparison.Ordinal));
         if (f != null)
         {
-            return f.Value();
+            return f.Value;
         }
         else
         {

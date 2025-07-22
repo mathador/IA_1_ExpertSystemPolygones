@@ -17,7 +17,7 @@ internal class RulesBase
 
     public RulesBase()
     {
-        rules = new List<Rule>();
+        rules = [];
     }
 
     public void ClearBase()
