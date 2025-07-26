@@ -34,4 +34,8 @@ Le système doit être capable de reconnaître différents types de polygones en fon
 
 ---
 
+## Tests
+
+Un exemple de test unitaire, mal formé a été ajouté pour montrer que cette "architecture" ne permet pas d'en faire et par conséquent, toute modificaion du projet de base peut amener à une régression
+
 > *Projet pédagogique — Intelligence Artificielle, systèmes experts, C#*
