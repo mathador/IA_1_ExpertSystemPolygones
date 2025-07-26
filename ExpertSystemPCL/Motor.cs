@@ -105,6 +105,17 @@ public class Motor
     /// <param name="ruleStr"></param>
     public void AddRule(string ruleStr)
     {
+        Rule currentRule = null!;
+        currentRule = ParseRule(ruleStr, currentRule);
+        if (currentRule is null)
+        {
+            throw new ArgumentException($"La règle '{ruleStr}' n'est pas valide.");
+        }
+        rDB.AddRule(currentRule);
+    }
+
+    private static Rule ParseRule(string ruleStr, Rule currentRule)
+    {
         var splitName = ruleStr.Split([" : "], StringSplitOptions.RemoveEmptyEntries);
         if (splitName.Length == 2)
         {
@@ -122,8 +133,10 @@ public class Motor
 
                 var conclusionStr = splitPremConcl[1].Trim();
                 IFact conclusion = FactFactory.Fact(conclusionStr);
-                rDB.AddRule(new(name, premises, conclusion));
+                currentRule = new(name, premises, conclusion);
             }
         }
+
+        return currentRule;
     }
 }
