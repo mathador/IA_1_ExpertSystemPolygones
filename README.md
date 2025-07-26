@@ -1,5 +1,13 @@
 # Système Expert de Reconnaissance de Polygones
 
+### En cas d'erreur de build:
+
+Si l'erreur:
+```
+Your project does not reference ".NETFramework,Version=v4.8" framework. Add a reference to ".NETFramework,Version=v4.8" in the "TargetFrameworks" property of your project file and then re-run NuGet restore.
+```
+apparaît il se peut qu'il suffise de supprimer le dossier 'bin' e ou 'obj' du projet **Polygones**.
+
 ## Description du projet
 
 Cette solution est basée sur les sources en ligne du livre de Virginie MATHIVET — *L'IA pour les dév CSharp* (éditions ENI).
