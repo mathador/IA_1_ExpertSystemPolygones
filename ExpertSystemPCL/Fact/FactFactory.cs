@@ -7,15 +7,15 @@ internal static class FactFactory
     internal static IFact Fact(IFact f, Motor m)
     {
         IFact newFact;
-        if (f.GetType().Equals(typeof(IntFact)))
+        if (f is IntFact)
         {
             int value = m.AskIntValue(f.Question);
-            newFact = new IntFact(f.Name, value, null, 0);
+            newFact = new IntFact(f.Name, value, string.Empty, 0);
         }
         else
         {
             bool value = m.AskBoolValue(f.Question);
-            newFact = new BoolFact(f.Name, value, null, 0);
+            newFact = new BoolFact(f.Name, value, string.Empty, 0);
         }
         return newFact;
     }
@@ -33,7 +33,7 @@ internal static class FactFactory
             string[] nameValue = factStr.Split(["=", "(", ")"], StringSplitOptions.RemoveEmptyEntries);
             if (nameValue.Length >= 2)
             {
-                string question = null;
+                string question = string.Empty;
                 if (nameValue.Length == 3)
                 {
                     question = nameValue[2].Trim();
@@ -48,13 +48,13 @@ internal static class FactFactory
         else
         {
             bool value = true;
-            if (factStr.StartsWith("!"))
+            if (factStr.StartsWith('!'))
             {
                 value = false;
                 factStr = factStr.Substring(1).Trim(); // On enlève le ! du nom
             }
             string[] nameQuestion = factStr.Split(["(", ")"], StringSplitOptions.RemoveEmptyEntries);
-            string question = null;
+            string question = string.Empty;
             if (nameQuestion.Length == 2)
             {
                 question = nameQuestion[1].Trim();
