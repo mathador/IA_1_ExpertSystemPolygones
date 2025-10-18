@@ -50,15 +50,15 @@ public class Motor
             IFact foundFact = fDB.Search(f.Name);
             if (foundFact == null)
             {
-                if (f.Question != null)
+                if (string.IsNullOrWhiteSpace(f.Question))
+                {
+                    return -1;
+                }
+                else
                 {
                     foundFact = FactFactory.Fact(f, this);
                     fDB.AddFact(foundFact);
                     maxlevel = Math.Max(maxlevel, 0);
-                }
-                else
-                {
-                    return -1;
                 }
             }
 
