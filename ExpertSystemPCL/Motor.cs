@@ -48,27 +48,27 @@ public class Motor
         foreach (IFact f in r.Premises)
         {
             IFact foundFact = fDB.Search(f.Name);
-            if (foundFact == null)
+            if (foundFact is null)
             {
-                if (f.Question != null)
+                if (string.IsNullOrWhiteSpace(f.Question))
+                {
+                    return -1;
+                }
+                else
                 {
                     foundFact = FactFactory.Fact(f, this);
                     fDB.AddFact(foundFact);
                     maxlevel = Math.Max(maxlevel, 0);
                 }
-                else
-                {
-                    return -1;
-                }
             }
 
-            if (!foundFact.Value.Equals(f.Value))
+            if (foundFact.Value.Equals(f.Value))
             {
-                return -1;
+                maxlevel = Math.Max(maxlevel, foundFact.Level);
             }
             else
             {
-                maxlevel = Math.Max(maxlevel, foundFact.Level);
+                return -1;
             }
         }
         return maxlevel;
