@@ -67,13 +67,17 @@ internal static class Program
 
     public static void PrintFacts(List<IFact> facts)
     {
-        var res = $"Solution(s) trouvée(s) : {Environment.NewLine}{string.Join(Environment.NewLine, facts.Where(x => x.Level > 0).OrderByDescending(x => x.Level))}";
+        var factsResult = facts
+                            .Where(x => x.Level > 0)
+                            .OrderByDescending(x => x.Level)
+                            .Select(x => $"- {x.Name} (Niveau {x.Level})");
+        var res = $"Solution(s) trouvée(s) : {Environment.NewLine}{string.Join(Environment.NewLine, factsResult)}";
         Console.WriteLine(res);
     }
 
-    public static void PrintRules(List<IRule> rules)
-    {
-        var res = string.Join(Environment.NewLine, rules);
-        Console.WriteLine(res);
-    }
+    //public static void PrintRules(List<IRule> rules)
+    //{
+    //    var res = string.Join(Environment.NewLine, rules);
+    //    Console.WriteLine(res);
+    //}
 }
